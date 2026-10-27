@@ -1,0 +1,51 @@
+name: dXn.I18n
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  rust:
+    name: fmt, clippy, test, wasm32, package
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.99.0
+        with:
+          components: clippy, rustfmt
+          targets: wasm32-unknown-unknown
+      - run: cargo fmt --check
+      # The library depends on no UI framework or app framework.
+      - name: No UI framework in the dependency tree
+        shell: bash
+        run: |
+          tree=$(cargo tree --workspace --edges all --prefix none)
+          if grep -E '^(nsh-|gpui|rayx|leptos|dioxus)' <<< "$tree"; then
+            echo "::error::The library depends on a UI or app framework."
+            exit 1
+          fi
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - run: cargo test --workspace --all-features
+      - run: cargo check --workspace --target wasm32-unknown-unknown
+      - run: cargo package --workspace
+
+  docs:
+    name: rustdoc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.99.0
+      - run: cargo rustdoc -p dxn_i18n --all-features -- -D missing_docs -D rustdoc::broken_intra_doc_links
+
+  msrv:
+    name: MSRV (Rust 1.97)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.97
+      # `rust-toolchain.toml` pins the development toolchain; the explicit `+1.97` overrides it.
+      - run: cargo +1.97 check -p dxn_i18n --all-features

@@ -1,0 +1,65 @@
+name: Release-plz
+
+# Runs on pushes to `main` next to `ci.yml`; it runs no tests. `release` tags `vX.Y.Z` and
+# creates the GitHub Release (with the CHANGELOG.md section as notes) when the version in Cargo.toml
+# has no tag yet: the merged release pull request, or the initial 0.1.0. `release-pr` then keeps the
+# next release pull request up to date; it waits for `release` so it never reads an untagged history.
+#
+# RELEASE_PLZ_TOKEN is the fine-grained personal access token the dXnSix library repositories share
+# (see docs/releasing.md). Events made with the default GITHUB_TOKEN start no workflows, so with it
+# the release pull request would get no CI.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: release
+    if: github.repository == 'dXnSix/dXn.I18n'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: release-plz-release-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLZ_TOKEN }}
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: false
+          rustflags: ""
+      - uses: release-plz/action@v0.5
+        with:
+          command: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
+
+  release-pr:
+    name: release-pr
+    needs: release
+    if: github.repository == 'dXnSix/dXn.I18n'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: release-plz-pr-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLZ_TOKEN }}
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: false
+          rustflags: ""
+      - uses: release-plz/action@v0.5
+        with:
+          command: release-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
