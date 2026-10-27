@@ -1,0 +1,20 @@
+[package]
+name = "dxn_i18n"
+description = "Translations for Rust apps with Unicode MessageFormat 2 messages, independent of any UI framework"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "../../README.md"
+keywords = ["i18n", "l10n", "messageformat", "mf2", "translation"]
+categories = ["internationalization", "localization", "template-engine"]
+
+[dependencies]
+dxn_intl.workspace = true
+serde_json.workspace = true
+unicode-normalization.workspace = true
+
+[lints]
+workspace = true
