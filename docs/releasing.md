@@ -8,8 +8,9 @@ published to crates.io: consumers depend on the tag,
 dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" }
 ```
 
-and `Cargo.lock` records the commit it points to. The manifest stays crates.io-ready
-(`cargo package --workspace` passes in CI), but no registry release is made.
+and `Cargo.lock` records the commit it points to. No registry release is made, and none can be
+while `dxn_intl` comes by git tag only: CI checks the package's file list
+(`cargo package --workspace --list`), not a registry build.
 
 **release-plz** does the work (`release-plz.toml`, `.github/workflows/release-plz.yml`) in
 git-only mode (`git_only = true`, `publish = false`): versions come from the `v*` tags, and on

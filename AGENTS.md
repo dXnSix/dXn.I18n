@@ -28,7 +28,7 @@ cargo fmt --check
 cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo test --workspace --all-features
 cargo check --workspace --target wasm32-unknown-unknown
-cargo package --workspace
+cargo package --workspace --list
 ```
 
 Tests are grouped by feature, one file per feature in `crates/dxn_i18n/tests/` (`syntax`,

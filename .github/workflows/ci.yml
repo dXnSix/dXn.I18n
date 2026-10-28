@@ -31,7 +31,9 @@ jobs:
       - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
       - run: cargo test --workspace --all-features
       - run: cargo check --workspace --target wasm32-unknown-unknown
-      - run: cargo package --workspace
+      # `dxn_intl` comes by git tag only and has no crates.io version, so the package cannot be
+      # built for a registry; `--list` still checks which files it would ship.
+      - run: cargo package --workspace --list
 
   docs:
     name: rustdoc
