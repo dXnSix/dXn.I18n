@@ -2,6 +2,8 @@
 
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
 
+**Documentation:** https://dxnsix.github.io/dXn.I18n/
+
 **Translations for Rust apps with [Unicode MessageFormat 2](https://www.unicode.org/reports/tr35/tr35-messageFormat.html)
 messages**, independent of any UI framework and building for `wasm32-unknown-unknown`. Plurals,
 numbers and dates are formatted in Rust by [dXn.Intl](https://github.com/dXnSix/dXn.Intl) on
@@ -63,7 +65,8 @@ wall times (`dxn_intl::DateTime`); dates in messages are ISO 8601 text (`2026-10
 ## What is left out
 
 `:number`'s significant-digit, notation and compact options are accepted and ignored; currencies
-always show their own fraction digits. Time zones are the caller's: a date is a wall time.
+always show their own fraction digits and grouping. Time zones are the caller's: a date is a wall
+time.
 
 ## Development
 

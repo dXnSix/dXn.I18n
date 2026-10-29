@@ -20,8 +20,8 @@ every push to `main` it
 - when `Cargo.toml` holds a version that has no tag yet, tags `vX.Y.Z` and creates the GitHub
   Release with that version's `CHANGELOG.md` section as its notes.
 
-The first release, `v0.1.0`, needs no pull request: `Cargo.toml` says `0.1.0` and no `v*` tag
-exists, so the `release` job tags it on the first push that holds the workflow.
+The first release, `v0.1.0`, needed no pull request: `Cargo.toml` said `0.1.0` and no `v*` tag
+existed, so the `release` job tagged it on the first push that held the workflow.
 
 ## The 0.x policy
 
