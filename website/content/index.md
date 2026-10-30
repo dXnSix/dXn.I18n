@@ -2,7 +2,7 @@
 title: dXn.I18n
 description: Translations for Rust apps with Unicode MessageFormat 2 messages - plurals, numbers, currencies, dates, JSON bundles and locale fallback - independent of any UI framework and building for WebAssembly.
 eyebrow: Translations for Rust
-headline: MessageFormat 2 messages, formatted in Rust.
+headline: MessageFormat2 messages, formatted in Rust.
 lede: >-
   dxn_i18n parses and formats Unicode MessageFormat 2 messages, loads them from JSON resources and
   finds the right bundle for the user's locale and its fallbacks. Plurals, numbers, money and dates
