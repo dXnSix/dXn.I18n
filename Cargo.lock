@@ -49,8 +49,8 @@ dependencies = [
 
 [[package]]
 name = "dxn_intl"
-version = "0.1.0"
-source = "git+https://github.com/dXnSix/dXn.Intl?tag=v0.1.0#98ebb3d76113b84392e2cbefa58bbd1e9c736ff6"
+version = "0.1.1"
+source = "git+https://github.com/dXnSix/dXn.Intl?tag=v0.1.1#5ae906c38238ef81ed6c4d5a04f424aac20ce4f3"
 dependencies = [
  "fixed_decimal",
  "icu",
