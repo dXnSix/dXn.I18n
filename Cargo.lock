@@ -40,7 +40,7 @@ dependencies = [
 
 [[package]]
 name = "dxn_i18n"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "dxn_intl",
  "serde_json",
