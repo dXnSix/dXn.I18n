@@ -13,8 +13,8 @@ The crate is not on crates.io. Releases are git tags, so depend on a tag. Number
 
 ```toml
 [dependencies]
-dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.0" }
-dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.0" }
+dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.1" }
+dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.1" }
 ```
 
 :::warning Keep one dxn_intl

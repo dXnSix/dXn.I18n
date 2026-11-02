@@ -23,8 +23,8 @@ ICU4X's CLDR data, so every platform shows the same text.
 
 ```toml
 [dependencies]
-dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.0" }
-dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.0" }
+dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.1" }
+dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.1" }
 ```
 
 ```rust
