@@ -12,7 +12,9 @@ keywords = ["i18n", "l10n", "messageformat", "mf2", "translation"]
 categories = ["internationalization", "localization", "template-engine"]
 
 [dependencies]
-dxn_intl.workspace = true
+# Declared here, not in the workspace table, so release-plz counts a bump as a change to this
+# crate and releases it (docs/releasing.md).
+dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.1" }
 serde_json.workspace = true
 unicode-normalization.workspace = true
 

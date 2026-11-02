@@ -31,6 +31,11 @@ existed, so the `release` job tagged it on the first push that held the workflow
 | breaking: `!` after the type or scope, or a `BREAKING CHANGE:` footer | minor (`0.1.x` → `0.2.0`) |
 | `docs:`, `test:`, `ci:`, `build:`, `refactor:`, `chore:` | none on their own; listed in the next release's changelog |
 
+release-plz counts only the commits that change the crate's packaged files (`crates/dxn_i18n/` and
+the `README.md` it ships). That is why `dxn_intl` is declared in `crates/dxn_i18n/Cargo.toml`, not
+in the workspace table: a `fix(deps)` commit that moves its tag releases `dxn_i18n` on it, and
+consumers read the tag to pair with there.
+
 A breaking commit's body states the break and a `Migration:` footer tells consumers what to
 change; the changelog prints it under the entry. `chore(release)` and `chore(deps)` commits are
 left out of the changelog. `CHANGELOG.md` is written by release-plz and never edited by hand
