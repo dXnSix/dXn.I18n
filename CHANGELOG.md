@@ -5,6 +5,17 @@ All notable changes to `dxn_i18n` are documented in this file. The format follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html). It is generated from
 Conventional Commits by release-plz.
 
+## [0.1.3] - 2026-11-09
+
+### Features
+- *(macros)* Check t! calls against the crate's messages when it builds
+
+### Fixes
+- *(deps)* Take dxn_intl v0.1.2
+
+### Maintenance
+- release v0.1.2 ([#2](https://github.com/dXnSix/dXn.I18n/pull/2))
+
 ## [0.1.2] - 2026-11-09
 
 ### Documentation

@@ -15,7 +15,7 @@ categories = ["internationalization", "localization", "development-tools::proced
 proc-macro = true
 
 [dependencies]
-dxn_i18n = { path = "../dxn_i18n", version = "0.1.2" }
+dxn_i18n = { path = "../dxn_i18n", version = "0.1.3" }
 proc-macro2 = "1.0.107"
 quote = "1.0.47"
 serde_json.workspace = true
