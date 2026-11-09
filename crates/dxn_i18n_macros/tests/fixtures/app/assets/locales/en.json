@@ -1,0 +1,9 @@
+{
+  "hello": "Hello, {$name}!",
+  "greeting": "Hi, {$name}.",
+  "status": "All good.",
+  "cart": {
+    "items": ".input {$count :number}\n.match $count\none {{One item}}\n* {{{$count} items}}",
+    "total": "Total: {$amount :currency currency=EUR}"
+  }
+}

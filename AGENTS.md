@@ -2,7 +2,10 @@
 
 Translations for Rust apps with [Unicode MessageFormat 2](https://www.unicode.org/reports/tr35/tr35-messageFormat.html)
 messages (the `dxn_i18n` crate in `crates/`): the MF2 parser and formatter, the default functions,
-JSON message bundles and a translator with locale fallback. What it offers is in `README.md`.
+JSON message bundles, a translator with locale fallback and the `args!`/`t!` macros. What it
+offers is in `README.md`. `dxn_i18n_macros`, a proc-macro crate beside it on the same version and
+tag, checks `t!` calls against the calling crate's messages when it builds; it depends on
+`dxn_i18n`, never the other way.
 
 ## Boundaries
 
@@ -32,8 +35,11 @@ cargo package --workspace --list
 ```
 
 Tests are grouped by feature, one file per feature in `crates/dxn_i18n/tests/` (`syntax`,
-`formatting`, `selection`, `functions`, `translator`, `conformance`; select one with
-`cargo test -p dxn_i18n --test <feature>`). A new feature or behavior change gets a new group, or
+`formatting`, `selection`, `functions`, `translator`, `macros`, `arguments`, `conformance`;
+select one with `cargo test -p dxn_i18n --test <feature>`). `dxn_i18n_macros` builds checked
+calls in `tests/checked.rs`, against `tests/locales/` (its own `[package.metadata.dxn_i18n]`), and
+tests the checks' errors in `src/check/tests.rs` on the fixture crates in `tests/fixtures/`, since
+a proc-macro crate exports only its macros (`cargo test -p dxn_i18n_macros`). A new feature or behavior change gets a new group, or
 tests in the group of its feature. Test only what you changed while iterating, and run the full
 list above once before committing. Raw diagnostic output goes to the ignored `artifacts-temp/`,
 never into commits.

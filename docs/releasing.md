@@ -6,6 +6,7 @@ published to crates.io: consumers depend on the tag,
 ```toml
 [dependencies]
 dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" }
+dxn_i18n_macros = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" } # checked `t!`
 ```
 
 and `Cargo.lock` records the commit it points to. No registry release is made, and none can be
@@ -31,8 +32,12 @@ existed, so the `release` job tagged it on the first push that held the workflow
 | breaking: `!` after the type or scope, or a `BREAKING CHANGE:` footer | minor (`0.1.x` → `0.2.0`) |
 | `docs:`, `test:`, `ci:`, `build:`, `refactor:`, `chore:` | none on their own; listed in the next release's changelog |
 
-release-plz counts only the commits that change the crate's packaged files (`crates/dxn_i18n/` and
-the `README.md` it ships). That is why `dxn_intl` is declared in `crates/dxn_i18n/Cargo.toml`, not
+`dxn_i18n_macros` is released with `dxn_i18n`: one version group, one tag, one changelog, owned
+by `dxn_i18n` (`release-plz.toml`), and release-plz moves the version of its path dependency on
+`dxn_i18n` with the bump.
+
+release-plz counts only the commits that change the crates' packaged files (`crates/dxn_i18n/`
+with the `README.md` it ships, and `crates/dxn_i18n_macros/`). That is why `dxn_intl` is declared in `crates/dxn_i18n/Cargo.toml`, not
 in the workspace table: a `fix(deps)` commit that moves its tag releases `dxn_i18n` on it, and
 consumers read the tag to pair with there.
 

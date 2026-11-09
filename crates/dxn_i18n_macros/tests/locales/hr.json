@@ -1,0 +1,7 @@
+{
+  "hello": "Bok, {$name}!",
+  "greeting": ".input {$gender :string}\n.match $gender\nfemale {{Bok, {$name}, dobro došla.}}\n* {{Bok, {$name}, dobro došao.}}",
+  "cart": {
+    "items": ".input {$count :number}\n.match $count\none {{{$count} artikl}}\nfew {{{$count} artikla}}\n* {{{$count} artikala}}"
+  }
+}

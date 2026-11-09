@@ -1,0 +1,8 @@
+{
+  "hello": "Hello, {$name}!",
+  "greeting": "Hi, {$name}.",
+  "cart": {
+    "items": ".input {$count :number}\n.match $count\none {{One item}}\n* {{{$count} items}}"
+  },
+  "profile": "User {$user-id} is {$type}."
+}

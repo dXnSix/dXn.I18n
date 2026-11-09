@@ -19,7 +19,7 @@ ICU4X's CLDR data, so every platform shows the same text.
   locale through its parents and fallbacks to the default, and values formatted in the user's
   region and preferences (`-u-hc-h23`, `-u-nu-…`).
 - **Macros**: `args!` and `t!` at the call site, for a translator or any service that implements
-  `Translate`.
+  `Translate`; `dxn_i18n_macros` checks message ids and arguments when the crate builds.
 
 ## Use
 
@@ -77,6 +77,11 @@ assert_eq!(
 );
 # Ok::<(), Box<dyn std::error::Error>>(())
 ```
+
+`dxn_i18n_macros` checks the same calls when the crate builds: its `t!` fails the build for a
+message id that is not in the crate's messages (`locales/` by default, set in
+`[package.metadata.dxn_i18n]`), an argument no translation reads, or one a translation needs and
+the call does not pass. See [its README](crates/dxn_i18n_macros/README.md).
 
 A message that fails still formats: what cannot be resolved shows as its fallback (`{$name}`), and
 `Translator::try_format` or `MessageFormatter::format` report the errors. `format_to_parts` gives

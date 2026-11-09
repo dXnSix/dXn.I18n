@@ -1,0 +1,3 @@
+{
+  "greeting": ".input {$gender :string}\n.match $gender\nfemale {{Bok, {$name}, dobro došla.}}\n* {{Bok, {$name}, dobro došao.}}"
+}

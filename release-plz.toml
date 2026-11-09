@@ -21,10 +21,24 @@ semver_check = false
 # the next one.
 release_commits = "^(feat|fix|perf)"
 
+# One release unit: `dxn_i18n_macros` checks calls of `dxn_i18n`'s `t!` and depends on it, so
+# both crates share one version (the version group), one tag `vX.Y.Z`, one GitHub Release and
+# one root CHANGELOG.md, all owned by `dxn_i18n`.
 [[package]]
 name = "dxn_i18n"
 # The package lives in `crates/`; the repository keeps one root changelog.
 changelog_path = "./CHANGELOG.md"
+changelog_include = ["dxn_i18n_macros"]
+version_group = "dxn_i18n"
+
+[[package]]
+name = "dxn_i18n_macros"
+version_group = "dxn_i18n"
+# Released under `dxn_i18n`'s tag and changelog. It keeps the inherited `git_tag_name`: in
+# git-only mode that template is how it finds its previous version (`v*` tags).
+git_tag_enable = false
+git_release_enable = false
+changelog_update = false
 
 [changelog]
 header = """# Changelog
