@@ -34,10 +34,6 @@ version_group = "dxn_i18n"
 [[package]]
 name = "dxn_i18n_macros"
 version_group = "dxn_i18n"
-# For its first release only: no `v*` tag holds it yet, and git-only mode reads its previous
-# version from the newest tag its template matches, so it gets a template no tag matches and
-# counts as new. Drop this line once `v0.1.2` exists.
-git_tag_name = "dxn_i18n_macros-v{{ version }}"
 # Released under `dxn_i18n`'s tag and changelog. It keeps the inherited `git_tag_name`: in
 # git-only mode that template is how it finds its previous version (`v*` tags).
 git_tag_enable = false
