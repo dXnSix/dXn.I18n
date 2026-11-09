@@ -53,6 +53,11 @@ impl Message {
         &self.syntax
     }
 
+    /// The names of the arguments the message reads (see [`MessageSyntax::arguments`]).
+    pub fn arguments(&self) -> Vec<String> {
+        self.syntax.arguments()
+    }
+
     /// Formats the message for `locale` with the default functions and no bidi isolation;
     /// what fails shows as a fallback such as `{$name}`.
     pub fn format(&self, locale: &Locale, args: &Args) -> String {

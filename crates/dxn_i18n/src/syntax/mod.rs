@@ -9,7 +9,10 @@
 mod parser;
 mod validate;
 
+use std::collections::{BTreeSet, HashSet};
 use std::fmt;
+
+use unicode_normalization::UnicodeNormalization;
 
 pub use parser::parse;
 
@@ -20,6 +23,82 @@ pub struct MessageSyntax {
     pub declarations: Vec<Declaration>,
     /// What the message formats to.
     pub body: Body,
+}
+
+impl MessageSyntax {
+    /// The names of the arguments the message reads, without `$`: its `.input` declarations
+    /// and every variable it references that no `.local` declares, in Unicode NFC (as
+    /// [`crate::Args`] compares names), sorted.
+    ///
+    /// ```
+    /// use dxn_i18n::syntax::parse;
+    ///
+    /// let message = parse(
+    ///     ".input {$count :number}
+    ///      .local $total = {$price :number minimumFractionDigits=$digits}
+    ///      .match $count
+    ///      one {{{#link href=$url}One item{/link}, {$total}}}
+    ///      *   {{{$count} items, {$total}}}",
+    /// )?;
+    /// assert_eq!(message.arguments(), ["count", "digits", "price", "url"]);
+    /// # Ok::<(), dxn_i18n::ParseError>(())
+    /// ```
+    pub fn arguments(&self) -> Vec<String> {
+        let mut referenced = BTreeSet::new();
+        let mut locals = HashSet::new();
+        for declaration in &self.declarations {
+            match declaration {
+                Declaration::Input { name, expression } => {
+                    referenced.insert(name.nfc().collect::<String>());
+                    expression_variables(expression, &mut referenced);
+                }
+                Declaration::Local { name, expression } => {
+                    locals.insert(name.nfc().collect::<String>());
+                    expression_variables(expression, &mut referenced);
+                }
+            }
+        }
+        match &self.body {
+            Body::Pattern(pattern) => pattern_variables(pattern, &mut referenced),
+            Body::Matcher(matcher) => {
+                referenced.extend(matcher.selectors.iter().map(|name| name.nfc().collect()));
+                for variant in &matcher.variants {
+                    pattern_variables(&variant.pattern, &mut referenced);
+                }
+            }
+        }
+        referenced
+            .into_iter()
+            .filter(|name| !locals.contains(name))
+            .collect()
+    }
+}
+
+fn pattern_variables(pattern: &Pattern, names: &mut BTreeSet<String>) {
+    for part in pattern {
+        match part {
+            PatternPart::Text(_) => {}
+            PatternPart::Expression(expression) => expression_variables(expression, names),
+            PatternPart::Markup(markup) => option_variables(&markup.options, names),
+        }
+    }
+}
+
+fn expression_variables(expression: &Expression, names: &mut BTreeSet<String>) {
+    if let Some(Operand::Variable(name)) = &expression.operand {
+        names.insert(name.nfc().collect());
+    }
+    if let Some(function) = &expression.function {
+        option_variables(&function.options, names);
+    }
+}
+
+fn option_variables(options: &[FunctionOption], names: &mut BTreeSet<String>) {
+    for option in options {
+        if let Operand::Variable(name) = &option.value {
+            names.insert(name.nfc().collect());
+        }
+    }
 }
 
 /// A declaration of a complex message.
