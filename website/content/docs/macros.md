@@ -69,7 +69,7 @@ fn greet(i18n: &impl Translate) -> String {
 
 ```toml
 [dependencies]
-dxn_i18n_macros = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" }
+dxn_i18n_macros = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.2" }
 
 [package.metadata.dxn_i18n]
 messages = "locales"              # the directory, relative to Cargo.toml (the default)

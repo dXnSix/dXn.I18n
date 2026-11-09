@@ -11,8 +11,8 @@ order: 170
 
 ```toml
 [dependencies]
-dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.1" }
-dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.1" }
+dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.2" }
+dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.2" }
 ```
 
 To upgrade, change the tag to a newer one from the [Releases page](https://github.com/dXnSix/dXn.I18n/releases). Keep the `dxn_intl` tag equal to the one the new `dxn_i18n` release uses ([Get started](./getting-started.md#install)). Tags never move or disappear: a bad release is fixed forward with a new patch release.

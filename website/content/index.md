@@ -10,8 +10,8 @@ lede: >-
   text. It depends on no UI framework.
 install: |-
   [dependencies]
-  dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.1" }
-  dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.1" }
+  dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.2" }
+  dxn_intl = { git = "https://github.com/dXnSix/dXn.Intl", tag = "v0.1.2" }
 facts:
   - { label: Messages, value: "Unicode MessageFormat 2" }
   - { label: Conformance, value: "462 Working Group cases pass" }

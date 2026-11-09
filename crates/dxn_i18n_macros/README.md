@@ -6,8 +6,8 @@ the call does not pass, fails the build instead of showing a fallback at run tim
 
 ```toml
 [dependencies]
-dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" }
-dxn_i18n_macros = { git = "https://github.com/dXnSix/dXn.I18n", tag = "vX.Y.Z" }
+dxn_i18n = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.2" }
+dxn_i18n_macros = { git = "https://github.com/dXnSix/dXn.I18n", tag = "v0.1.2" }
 
 [package.metadata.dxn_i18n]
 messages = "locales"              # the directory, relative to Cargo.toml (the default)
