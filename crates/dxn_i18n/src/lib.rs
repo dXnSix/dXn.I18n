@@ -7,11 +7,14 @@
 //! - [`Translator`]: an app's bundles, the user's locale and its fallbacks.
 //! - [`FunctionRegistry`]: the functions messages call; the default ones format and select
 //!   numbers and dates with [`dxn_intl`] (ICU4X), and apps add their own.
+//! - [`args!`] and [`t!`]: arguments and translations at the call site, through the
+//!   [`Translate`] trait a framework's service can implement too.
 //!
 //! [Unicode MessageFormat 2]: https://www.unicode.org/reports/tr35/tr35-messageFormat.html
 
 mod bundle;
 mod function;
+mod macros;
 mod message;
 pub mod syntax;
 mod translator;
@@ -22,6 +25,9 @@ pub use function::{
     DateTimeValue, Function, FunctionContext, FunctionError, FunctionRegistry, NumberSelect,
     NumberValue, Options, ResolvedValue, TextValue, downcast,
 };
+#[doc(hidden)]
+pub use macros::__private;
+pub use macros::Translate;
 pub use message::{BidiIsolation, FormatError, Formatted, Message, MessageFormatter, Part};
 pub use syntax::{MarkupKind, ParseError};
 pub use translator::{MissingMessage, TranslateError, Translator};

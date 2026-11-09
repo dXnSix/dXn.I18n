@@ -18,6 +18,8 @@ ICU4X's CLDR data, so every platform shows the same text.
 - **Bundles and a translator**: JSON resources with nested ids, a lookup chain from the user's
   locale through its parents and fallbacks to the default, and values formatted in the user's
   region and preferences (`-u-hc-h23`, `-u-nu-…`).
+- **Macros**: `args!` and `t!` at the call site, for a translator or any service that implements
+  `Translate`.
 
 ## Use
 
@@ -52,6 +54,27 @@ let args = Args::new().with("count", 3).with("total", 42.5);
 assert_eq!(translator.format("cart.summary", &args), "3 items, €42.50.");
 translator.set_locale(parse_locale("hr-HR")?);
 assert_eq!(translator.format("cart.summary", &args), "3 artikla, 42,50\u{a0}€.");
+# Ok::<(), Box<dyn std::error::Error>>(())
+```
+
+`args!` and `t!` do the same at the call site, keeping each argument's type (a lone name passes
+the variable of that name, as `format!` does). `t!` takes anything that implements `Translate`: a
+`Translator`, a reference or smart pointer to one, or a framework's own service.
+
+```rust
+use dxn_i18n::{Bundle, Translator, t};
+use dxn_intl::parse_locale;
+
+let mut en = Bundle::new(parse_locale("en")?);
+en.add_json(r#"{ "greeting": "Hello, {$name}! You have {$count} new messages." }"#)?;
+let mut translator = Translator::new(parse_locale("en")?);
+translator.add_bundle(en);
+
+let name = "Ana";
+assert_eq!(
+    t!(translator, "greeting", name, count = 1200),
+    "Hello, Ana! You have 1,200 new messages."
+);
 # Ok::<(), Box<dyn std::error::Error>>(())
 ```
 
