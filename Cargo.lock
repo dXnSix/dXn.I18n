@@ -63,11 +63,13 @@ dependencies = [
 
 [[package]]
 name = "dxn_intl"
-version = "0.1.1"
-source = "git+https://github.com/dXnSix/dXn.Intl?tag=v0.1.1#5ae906c38238ef81ed6c4d5a04f424aac20ce4f3"
+version = "0.1.2"
+source = "git+https://github.com/dXnSix/dXn.Intl?tag=v0.1.2#130a7a42992585cee30ea0b1386829886bb19e08"
 dependencies = [
  "fixed_decimal",
  "icu",
+ "icu_datetime",
+ "icu_decimal",
  "icu_experimental",
  "icu_provider",
 ]
